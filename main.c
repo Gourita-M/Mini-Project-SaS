@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 int main(){
-    
+
         int choice;
         // for Adding a book
         char titles[100][50];
@@ -55,13 +55,13 @@ int main(){
             break;
             case 2:   // Showing All Available Books
 
-               printf("##########  BookStore  ##########\n");
-               printf("\nShowing All Available Books");
+               
                     if (bookCount == 0){
-                        printf("\nBook Shop is Empty");
+                        printf("\nBook Shop is Empty\n");
                     }
                         else {
-                   
+                             printf("##########  BookStore  ##########\n");
+                             printf("\nShowing All Available Books");
                              printf("\nBooks Shop List\n");
 
                                    for (int i = 0 ; i < bookCount ; i++){
@@ -75,12 +75,104 @@ int main(){
                              }
 
             break;
-            case 3:
+            case 3:// Update Quantity
+                if (bookCount == 0) {
+                    printf("Book Shop is Empty\n");
+                    break;
+                }
+
+                {
+                    char search[50];
+                    printf("Enter the title of the book to update: ");
+                    scanf(" %[^\n]", search);
+
+                    int found = -1;
+                    for (int i = 0; i < bookCount; i++) {
+                        int match = 1;
+                        int j = 0;
+                        while (titles[i][j] != '\0' || search[j] != '\0') {
+                            if (titles[i][j] != search[j]) {
+                                match = 0;
+                                break;
+                            }
+                            j++;
+                        }
+                        if (match) {
+                            found = i;
+                            break;
+                        }
+                    }
+
+                    if (found != -1) {
+                        printf("Current quantity of '%s': %d\n", titles[found], quantities[found]);
+                        printf("Enter new quantity: ");
+                        scanf("%d", &quantities[found]);
+                        printf("Quantity updated successfully!\n");
+                    } else {
+                        printf("Book not found!\n");
+                    }
+                }
+                 
                 
                 break;
             case 4:
-                
+                    if (bookCount == 0) {
+        printf("Book Shop is Empty\n");
+        break;
+    }
+
+    {
+        char search[50];
+        printf("Enter the title of the book to remove: ");
+        scanf(" %[^\n]", search);
+
+        int found = -1;
+        for (int i = 0; i < bookCount; i++) {
+            int match = 1;
+            int j = 0;
+            while (titles[i][j] != '\0' || search[j] != '\0') {
+                if (titles[i][j] != search[j]) {
+                    match = 0;
+                    break;
+                }
+                j++;
+            }
+            if (match) {
+                found = i;
                 break;
+            }
+        }
+
+        if (found != -1) {
+            // Shift all books after the removed one
+            for (int i = found; i < bookCount - 1; i++) {
+                // Move title
+                int j = 0;
+                while (titles[i + 1][j] != '\0') {
+                    titles[i][j] = titles[i + 1][j];
+                    j++;
+                }
+                titles[i][j] = '\0';
+
+                // Move author
+                j = 0;
+                while (authors[i + 1][j] != '\0') {
+                    authors[i][j] = authors[i + 1][j];
+                    j++;
+                }
+                authors[i][j] = '\0';
+
+                // Move price and quantity
+                prices[i] = prices[i + 1];
+                quantities[i] = quantities[i + 1];
+            }
+            bookCount--;
+            printf("Book removed successfully!\n");
+        } else {
+            printf("Book not found!\n");
+        }
+    }
+    break;
             case 5:
                 
                 break;
