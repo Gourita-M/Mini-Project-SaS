@@ -58,7 +58,7 @@ int main(){
                
                     if (bookCount == 0){
                         printf("\nBook Shop is Empty\n");
-                    }
+                       }
                         else {
                              printf("##########  BookStore  ##########\n");
                              printf("\nShowing All Available Books");
@@ -76,15 +76,15 @@ int main(){
 
             break;
             case 3:// Update Quantity
-                if (bookCount == 0) {
-                    printf("Book Shop is Empty\n");
+                    if (bookCount == 0) {
+                        printf("Book Shop is Empty\n");
                     break;
                 }
 
                 {
                     char search[50];
                     printf("Enter the title of the book to update: ");
-                    scanf(" %[^\n]", search);
+                           scanf(" %[^\n]", search);
 
                     int found = -1;
                     for (int i = 0; i < bookCount; i++) {
@@ -174,6 +174,11 @@ int main(){
     }
     break;
             case 5:
+             int total = 0;
+                for(int i=0; i<bookCount; i++) {
+                    total += quantities[i];
+                }
+                printf("Total number of books in stock: %d\n", total);
                 
                 break;
             default:
